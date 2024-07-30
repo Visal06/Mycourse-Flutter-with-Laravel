@@ -86,7 +86,7 @@
                                     <a class="nav-link" href="{{ route('staff.index') }}">
                                         <div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div> Staff
                                     </a>
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="{{ route('category.index') }}">
                                         <div class="sb-nav-link-icon"><i class="fas fa-folder"></i></div> Categories
                                     </a>
                                     <a class="nav-link" href="#">
