@@ -1,0 +1,34 @@
+:root {
+    --bondi-blue-50: #f0f9fb;
+    --bondi-blue-100: #d9eff4;
+    --bondi-blue-200: #b8e1e9;
+    --bondi-blue-300: #87c9d9;
+    --bondi-blue-400: #4faac1;
+    --bondi-blue-500: #3797b1;
+    --bondi-blue-600: #2e748c;
+    --bondi-blue-700: #2b5f73;
+    --bondi-blue-800: #2a4f60;
+    --bondi-blue-900: #274352;
+    --bondi-blue-950: #152b37;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover{
+    color: var(--bondi-blue-500);
+}
+.btn-primary{
+    background-color: var(--bondi-blue-500);
+    border: var(--bondi-blue-500);
+}
+
+.bg_app {
+    background-color: var(--bondi-blue-500);
+    color: white;
+}
+
+.project_hover:hover {
+    background-color: rgb(8, 59, 105);
+}
