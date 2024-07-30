@@ -7,7 +7,8 @@
                     <h3 class="text-center font-weight-light my-4">Create New Category</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data"
+                        onsubmit="return confirm('Are you sure you want to create this category?')">
                         @csrf
                         <div class="row mb-12">
                             <div class="col-md-6">

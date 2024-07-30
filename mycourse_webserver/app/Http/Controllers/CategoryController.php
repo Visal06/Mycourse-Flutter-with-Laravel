@@ -13,8 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = Category::all();
-        return view('categories.index', compact('data'));
+        $categorys = Category::all();
+        return view('categories.index', compact('categorys'));
     }
 
     /**
@@ -28,7 +28,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Category $category)
     {
 
         $request->validate([
@@ -39,13 +39,13 @@ class CategoryController extends Controller
 
         $imagePath = $request->file('image')->store('Category');
 
-        $data = Category::create([
+        $category = Category::create([
             'title' => $request->txttitle,
             'description' => $request->txtdescription,
             'image' => $imagePath,
         ]);
 
-        return redirect()->route('category.show', $data->id);
+        return redirect()->route('category.show', $category->id);
     }
 
     /**
@@ -68,32 +68,33 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
         $request->validate([
             'txttitle' => 'required|string|max:255',
             'txtdescription' => 'required|string|max:255',
             'image' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
-        $id->update([
+        $category->update([
             'title' => $request->txttitle,
             'description' => $request->txtdescription,
 
         ]);
         if ($request->hasFile('image')) {
-            Storage::delete($id->image);
-            $id->image = $request->file('image')->store('Category');
-            $id->save();
+            Storage::delete($category->image);
+            $category->image = $request->file('image')->store('Category');
+            $category->save();
         }
+        return redirect()->route('category.show', $category->id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        Storage::delete($id->image);
-        $id->delete();
-        return redirect()->route('categories.index');
+        Storage::delete($category->image);
+        $category->delete();
+        return redirect()->route('category.index');
     }
 }

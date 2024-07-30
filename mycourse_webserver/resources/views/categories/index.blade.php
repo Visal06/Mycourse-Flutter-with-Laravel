@@ -37,25 +37,32 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach ($data as $item)
+                        @foreach ($categorys as $category)
                             <tr>
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->titile }}</td>
-                                <td>{{ $item->description }}</td>
+                                <td>{{ $category->id }}</td>
+                                <td>{{ $category->title }}</td>
+                                <td>{{ $category->description }}</td>
 
                                 <td>
-                                    <img src="{{ url('storage/' . $item->image) }}" alt="{{ $item->titile }}"
+                                    <img src="{{ url('storage/' . $category->image) }}" alt="{{ $category->titile }}"
                                         class="img-thumbnail" style="max-width: 100px;">
                                 </td>
                                 <td>
-                                    <form action="{{ route('category.destroy', $item->id) }}" method="POST"
+                                    <form action="{{ route('category.destroy', $category->id) }}" method="POST"
                                         onsubmit="return confirm('Are you sure you want to delete this purchase?')">
                                         @csrf
                                         @method('DELETE')
 
-                                        <a href="{{ route('category.edit', $item->id) }}" class="btn btn-primary">Edit</a>
+                                        <a href="{{ route('category.edit', $category->id) }}"
+                                            class="btn btn-primary">Edit</a>
 
-                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        @if ($category->image && Storage::exists($category->image))
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        @else
+                                            <button type="submit" class="btn btn-danger" disabled>Delete</button>
+                                        @endif
+
+
 
                                     </form>
                                 </td>
