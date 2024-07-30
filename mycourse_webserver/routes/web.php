@@ -33,3 +33,11 @@ Route::get('/category/edit/{category}', [App\Http\Controllers\CategoryController
 Route::put('/category/update/{category}', [App\Http\Controllers\CategoryController::class, 'update'])->name('category.update');
 Route::delete('/category/delete/{category}', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('category.destroy');
 Route::get('/category/show/{category}', [App\Http\Controllers\CategoryController::class, 'show'])->name('category.show');
+
+Route::get('/post/index', [App\Http\Controllers\PostController::class, 'index'])->name('post.index');
+Route::get('/post/create', [App\Http\Controllers\PostController::class, 'create'])->name('post.create');
+Route::post('/post/store', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
+Route::get('/post/edit/{post}', [App\Http\Controllers\PostController::class, 'edit'])->name('post.edit');
+Route::put('/post/update/{post}', [App\Http\Controllers\PostController::class, 'update'])->name('post.update');
+Route::delete('/post/delete/{post}', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.destroy');
+Route::get('/post/show/{post}', [App\Http\Controllers\PostController::class, 'show'])->name('post.show');
