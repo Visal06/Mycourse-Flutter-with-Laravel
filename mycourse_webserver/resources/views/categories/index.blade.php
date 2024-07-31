@@ -54,12 +54,12 @@
                                         @method('DELETE')
 
                                         <a href="{{ route('category.edit', $category->id) }}"
-                                            class="btn btn-primary">Edit</a>
+                                            class="btn btn-primary btn-sm">Edit</a>
 
                                         @if ($category->image && Storage::exists($category->image))
-                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                         @else
-                                            <button type="submit" class="btn btn-danger" disabled>Delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm" disabled>Delete</button>
                                         @endif
 
 

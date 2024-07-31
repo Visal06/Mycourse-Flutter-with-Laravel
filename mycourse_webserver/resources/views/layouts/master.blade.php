@@ -92,7 +92,7 @@
                                     <a class="nav-link" href="#">
                                         <div class="sb-nav-link-icon"><i class="fas fa-tags"></i></div> Attribute Values
                                     </a>
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="{{ route('post.index') }}">
                                         <div class="sb-nav-link-icon"><i class="fas fa-file"></i></div> Posts
                                     </a>
                                     <a class="nav-link" href="#">

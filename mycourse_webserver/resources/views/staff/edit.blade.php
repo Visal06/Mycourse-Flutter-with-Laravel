@@ -7,7 +7,8 @@
                     <h3 class="text-center font-weight-light my-4">Adjust Staff</h3>
                 </div>
                 <div class="card-body">
-                    <form class="forms-sample" action="{{ route('staff.update', $data->id) }}" method="POST">
+                    <form class="forms-sample" action="{{ route('staff.update', $data->id) }}" method="POST"
+                        onsubmit="return confirm('Are you sure you want to update this staff?')">
                         @csrf
                         @method('PUT')
                         <div class="row mb-3">

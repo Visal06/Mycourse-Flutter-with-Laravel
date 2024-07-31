@@ -7,7 +7,8 @@
                     <h3 class="text-center font-weight-light my-4">Create Staff</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('staff.store') }}" method="POST">
+                    <form action="{{ route('staff.store') }}" method="POST"
+                        onsubmit="return confirm('Are you sure you want to create this staff?')">
                         @csrf
                         <div class="row mb-2">
                             <div class="col-md-4">

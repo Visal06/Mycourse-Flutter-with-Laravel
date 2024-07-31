@@ -27,15 +27,19 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, post $post)
     {
         $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'content' => ['required', 'string'],
+            'txttitle' => ['required', 'string', 'max:255'],
+            'txtcontent' => ['required', 'string'],
         ]);
 
-        Post::create($request->all());
-        return redirect()->route('posts.index')->with('success', 'Post created successfully.');
+        $post->title = $request->txttitle;
+        $post->content = $request->txtcontent;
+
+        $post->save();
+
+        return redirect()->route('post.index')->with('success', 'Post created successfully.');
     }
 
     /**
@@ -60,15 +64,15 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'content' => ['required', 'string'],
+            'txttitle' => ['required', 'string', 'max:255'],
+            'txtcontent' => ['required', 'string', 'max:255'],
         ]);
 
-        $post->title = $request->title;
-        $post->content = $request->content;
+        $post->title = $request->txttitle;
+        $post->content = $request->txtcontent;
 
         $post->update($request->all());
-        return redirect()->route('posts.show', $post->id)->with('success', 'Post updated successfully.');
+        return redirect()->route('post.show', $post->id)->with('success', 'Post updated successfully.');
     }
 
     /**
@@ -78,6 +82,6 @@ class PostController extends Controller
     {
         $data = Post::find($post->id);
         $data->delete();
-        return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
+        return redirect()->route('post.index')->with('success', 'Post deleted successfully.');
     }
 }
