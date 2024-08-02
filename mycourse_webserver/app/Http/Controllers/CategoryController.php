@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,15 +35,22 @@ class CategoryController extends Controller
         $request->validate([
             'txttitle' => 'required|string|max:255',
             'txtdescription' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            // 'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $imagePath = $request->file('image')->store('Category');
+
+        $file = null;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image')->store('Category');
+        } else {
+            $defaultImagePath = 'theme/image/default.png';
+            $file = Storage::putFile('Category', new File(public_path($defaultImagePath)));
+        }
 
         $category = Category::create([
             'title' => $request->txttitle,
             'description' => $request->txtdescription,
-            'image' => $imagePath,
+            'image' => $file
         ]);
 
         return redirect()->route('category.show', $category->id);
@@ -75,6 +83,7 @@ class CategoryController extends Controller
             'txtdescription' => 'required|string|max:255',
             'image' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
+
         $category->update([
             'title' => $request->txttitle,
             'description' => $request->txtdescription,

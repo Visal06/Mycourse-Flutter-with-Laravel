@@ -41,3 +41,11 @@ Route::get('/post/edit/{post}', [App\Http\Controllers\PostController::class, 'ed
 Route::put('/post/update/{post}', [App\Http\Controllers\PostController::class, 'update'])->name('post.update');
 Route::delete('/post/delete/{post}', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.destroy');
 Route::get('/post/show/{post}', [App\Http\Controllers\PostController::class, 'show'])->name('post.show');
+
+Route::get('/slice/index', [App\Http\Controllers\SliceController::class, 'index'])->name('slice.index');
+Route::get('/slice/create', [App\Http\Controllers\SliceController::class, 'create'])->name('slice.create');
+Route::post('/slice/store', [App\Http\Controllers\SliceController::class, 'store'])->name('slice.store');
+Route::get('/slice/edit/{slice}', [App\Http\Controllers\SliceController::class, 'edit'])->name('slice.edit');
+Route::put('/slice/update/{slice}', [App\Http\Controllers\SliceController::class, 'update'])->name('slice.update');
+Route::delete('/slice/delete/{slice}', [App\Http\Controllers\SliceController::class, 'destroy'])->name('slice.destroy');
+Route::get('/slice/show/{slice}', [App\Http\Controllers\SliceController::class, 'show'])->name('slice.show');

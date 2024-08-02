@@ -31,7 +31,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="image">Image</label>
-                                <input type="file" class="form-control-file" id="image" name="image" required>
+                                <input type="file" class="form-control-file" id="image" name="image">
                             </div>
                         </div>
 

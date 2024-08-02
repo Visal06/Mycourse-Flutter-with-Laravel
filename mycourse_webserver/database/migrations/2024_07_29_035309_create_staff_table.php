@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone')->uniqid();
             $table->string('address');
             $table->date('start_date');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
