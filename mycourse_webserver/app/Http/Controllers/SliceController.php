@@ -32,7 +32,7 @@ class SliceController extends Controller
     public function store(Request $request, Slice $slice)
     {
         $request->validate([
-            'txtimage' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            //'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'txtdescription' => ['required', 'string'],
 
         ]);
@@ -77,7 +77,7 @@ class SliceController extends Controller
     public function update(Request $request, Slice $slice)
     {
         $request->validate([
-            'txtimage' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
             'txtdescription' => ['required', 'string'],
 
         ]);
