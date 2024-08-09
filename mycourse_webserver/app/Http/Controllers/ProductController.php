@@ -4,6 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\ProductGallary;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
 
 class ProductController extends Controller
 {
@@ -12,7 +19,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::with('categories')->get();
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -20,7 +28,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('products.create', compact('categories'));
     }
 
     /**
@@ -28,7 +37,44 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+
+            'description' => ['required', 'string'],
+
+        ]);
+
+
+        $file = null;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image')->store('Product');
+        } else {
+            $defaultImagePath = 'theme/image/default.png';
+            $file = Storage::putFile('Product', new File(public_path($defaultImagePath)));
+        }
+        $product = Product::create([
+            'notedate' => $request->txtdate,
+            'category_id' => $request->txtcategory_id,
+            'name' => $request->txtname,
+            'qty' => $request->txtquantity,
+            'price' => $request->txtprice,
+            'amount' => $request->txtamount,
+            'totalprice' => $request->txttotalprice,
+            'image' => $file,
+            'status' => $request->txtstatus,
+            'description' => $request->description,
+        ]);
+
+        $proid = $product->id;
+        $galleries = $request->file('gallary_image');
+        foreach ($galleries as $image) {
+            $path = $image->store('galleries');
+            $gall = new ProductGallary();
+            $gall->product_id = $proid;
+            $gall->image = $path;
+            $gall->save();
+        }
+        return redirect()->route('product.show', $product->id);
     }
 
     /**
@@ -36,7 +82,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('products.show', compact('product'));
     }
 
     /**
@@ -44,7 +90,22 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        // $cate = Category::all();
+        // $product = Product::find($product);
+        // $products = array(
+        //     "cate" => $cate,
+        //     "data" => $product
+        // );
+        // return view('products.edit', $products);
+
+        $cate = Category::all();
+        $pro = ProductGallary::all();
+        $data = array(
+            "cate" => $cate,
+            "pro" => $pro,
+            "product" => $product // Pass the product data to the view
+        );
+        return view('products.edit', $data);
     }
 
     /**
@@ -52,7 +113,46 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        // $request->validate([
+        //     'txtdate' => ['required', 'notedate'],
+        //     'txtcategory_id' => ['required', 'numeric'],
+        //     'txtname' => ['required', 'string', 'max:255'],
+        //     'txtquantity' => ['required', 'numeric'],
+        //     'txtprice' => ['required', 'numeric'],
+        //     'txtamount' => ['required', 'numeric'],
+        //     'txttotalprice' => ['required', 'numeric'],
+        //     'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        //     'txtstatus' => ['required', 'string'],
+        //     'description' => ['required', 'string', 'max:255'],
+
+        // ]);
+
+        if ($request->hasFile('image')) {
+            Storage::delete($product->image);
+            $product->image = $request->file('image')->store('Product');
+            $product->save();
+        }
+        if ($request->file('images' == '')) {
+            $file = Storage::url($product->image);
+            $cover = $request->file($file)->store('Product');
+            $product->image = $cover;
+            $product->update();
+        }
+
+        $product->update([
+            'notedate' => $request->txtdate,
+            'category_id' => $request->txtcategory_id,
+            'name' => $request->txtname,
+            'quantity' => $request->txtquantity,
+            'price' => $request->txtprice,
+            'amount' => $request->txtamount,
+            'totalprice' => $request->txttotalprice,
+            'status' => $request->txtstatus,
+            'description' => $request->description,
+
+        ]);
+
+        return redirect()->route('product.show', $product->id);
     }
 
     /**
@@ -60,6 +160,27 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        Storage::delete($product->image);
+        $product->delete();
+        return redirect()->route('product.index');
+    }
+
+    public function rules()
+    {
+        return [
+            'image' => ['required', 'image', Rule::dimensions()->maxWidth(100)->maxHeight(100), 'mimes:jpeg,png,gif', 'size:2048'],
+            // Add other validation rules for other fields
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'image.required' => 'Please select a product image.',
+            'image.image' => 'The selected file is not a valid image.',
+            'image.dimensions' => 'The image dimensions should not exceed 1000x1000 pixels.',
+            'image.mimes' => 'The image format should be JPEG, PNG, or GIF.',
+            'image.size' => 'The image size should not exceed 2MB.',
+        ];
     }
 }

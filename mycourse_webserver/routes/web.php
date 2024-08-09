@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StaffController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
@@ -25,15 +26,6 @@ Route::get('/staff/edit/{id}', [App\Http\Controllers\StaffController::class, 'ed
 Route::put('/staff/update/{id}', [App\Http\Controllers\StaffController::class, 'update'])->name('staff.update');
 Route::delete('/staff/delete/{id}', [App\Http\Controllers\StaffController::class, 'destroy'])->name('staff.destroy');
 Route::get('/staff/show', [App\Http\Controllers\StaffController::class, 'show'])->name('staff.show');
-
-
-// Route::get('/category/index', [App\Http\Controllers\CategoryController::class, 'index'])->name('category.index');
-// Route::get('/category/create', [App\Http\Controllers\CategoryController::class, 'create'])->name('category.create');
-// Route::post('/category/store', [App\Http\Controllers\CategoryController::class, 'store'])->name('category.store');
-// Route::get('/category/edit/{category}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('category.edit');
-// Route::put('/category/update/{category}', [App\Http\Controllers\CategoryController::class, 'update'])->name('category.update');
-// Route::delete('/category/delete/{category}', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('category.destroy');
-// Route::get('/category/show/{category}', [App\Http\Controllers\CategoryController::class, 'show'])->name('category.show');
 
 Route::get('/post/index', [App\Http\Controllers\PostController::class, 'index'])->name('post.index');
 Route::get('/post/create', [App\Http\Controllers\PostController::class, 'create'])->name('post.create');
@@ -59,4 +51,14 @@ Route::controller(CategoryController::class)->prefix('category')->group(function
     Route::put('/update/{category}', 'update')->name('category.update');
     Route::delete('/delete/{category}', 'destroy')->name('category.destroy');
     Route::get('/show/{category}', 'show')->name('category.show');
+});
+
+Route::controller(ProductController::class)->prefix('product')->group(function ($product) {
+    Route::get('/', 'index')->name('product.index');
+    Route::get('/create', 'create')->name('product.create');
+    Route::post('/store', 'store')->name('product.store');
+    Route::get('/edit/{product}', 'edit')->name('product.edit');
+    Route::put('/update/{product}', 'update')->name('product.update');
+    Route::delete('/delete/{product}', 'destroy')->name('product.destroy');
+    Route::get('/show/{product}', 'show')->name('product.show');
 });

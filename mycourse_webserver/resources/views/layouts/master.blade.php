@@ -95,7 +95,7 @@
                                     <a class="nav-link" href="{{ route('post.index') }}">
                                         <div class="sb-nav-link-icon"><i class="fas fa-file"></i></div> Posts
                                     </a>
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="{{ route('product.index') }}">
                                         <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div> Products
                                     </a>
                                     <a class="nav-link" href="#">
@@ -147,6 +147,8 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="{{ url('theme/js/datatables-simple-demo.js') }}"></script>
+    <script src="{{ asset('theme/tinymce/tinymce.min.js') }}"></script>
+    @yield('scripts')
 </body>
 
 </html>
