@@ -63,10 +63,30 @@
                                     <img src="{{ url('storage/' . $product->image) }}" alt="{{ $product->name }}"
                                         class="img-thumbnail" style="max-width: 61px;">
                                 </td>
-                                <td>{{ $product->status }}</td>
+                                <td>
+                                    @if ($product->status == 'Active')
+                                        <form class="d-flex align-items-center justify-content-center">
+                                            @csrf
+                                            <button class="btn btn-success btn-sm text-center">Activate</button>
+                                        </form>
+                                    @elseif ($product->status == 'Inactive')
+                                        <form class="text-center">
+                                            @csrf
+                                            <button class="btn btn-secondary btn-sm text-center">Inactive</button>
+                                        </form>
+                                    @else
+                                        <form class="text-center">
+                                            @csrf
+                                            <button class="btn btn-warning btn-sm text-center">Pending</button>
+                                        </form>
+                                    @endif
+                                </td>
+
+
                                 <td>
                                     <form action="{{ route('product.destroy', $product->id) }}" method="POST"
-                                        onsubmit="return confirm('Are you sure you want to delete this product?')">
+                                        onsubmit="return confirm('Are you sure you want to delete this product?')"
+                                        class="text-center">
                                         @csrf
                                         @method('DELETE')
 

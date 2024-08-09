@@ -45,7 +45,7 @@
 
                                 <td>
                                     <img src="{{ url('storage/' . $category->image) }}" alt="{{ $category->titile }}"
-                                        class="img-thumbnail" style="max-width: 100px;">
+                                        class="img-thumbnail" style="max-width: 61px;">
                                 </td>
                                 <td>
                                     <form action="{{ route('category.destroy', $category->id) }}" method="POST"

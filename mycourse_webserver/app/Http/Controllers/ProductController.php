@@ -65,13 +65,24 @@ class ProductController extends Controller
             'description' => $request->description,
         ]);
 
-        $proid = $product->id;
-        $galleries = $request->file('gallary_image');
-        foreach ($galleries as $image) {
-            $path = $image->store('galleries');
+
+        $fileGallary = null;
+        if ($request->hasFile('gallary_image')) {
+            $proid = $product->id;
+            $fileGallary = $request->file('gallary_image');
+            foreach ($fileGallary as $image) {
+                $path = $image->store('galleries');
+                $gall = new ProductGallary();
+                $gall->product_id = $proid;
+                $gall->image = $path;
+                $gall->save();
+            }
+        } else {
+            $defaultImagePath = 'theme/image/default.png';
+            $fileGallary = Storage::putFile('galleries', new File(public_path($defaultImagePath)));
             $gall = new ProductGallary();
-            $gall->product_id = $proid;
-            $gall->image = $path;
+            $gall->product_id = $product->id;
+            $gall->image = $fileGallary;
             $gall->save();
         }
         return redirect()->route('product.show', $product->id);
@@ -90,13 +101,6 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        // $cate = Category::all();
-        // $product = Product::find($product);
-        // $products = array(
-        //     "cate" => $cate,
-        //     "data" => $product
-        // );
-        // return view('products.edit', $products);
 
         $cate = Category::all();
         $pro = ProductGallary::all();
@@ -113,31 +117,44 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        // $request->validate([
-        //     'txtdate' => ['required', 'notedate'],
-        //     'txtcategory_id' => ['required', 'numeric'],
-        //     'txtname' => ['required', 'string', 'max:255'],
-        //     'txtquantity' => ['required', 'numeric'],
-        //     'txtprice' => ['required', 'numeric'],
-        //     'txtamount' => ['required', 'numeric'],
-        //     'txttotalprice' => ['required', 'numeric'],
-        //     'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        //     'txtstatus' => ['required', 'string'],
-        //     'description' => ['required', 'string', 'max:255'],
+        $request->validate([
+            //'txtdate' => ['required', 'notedate'],
+            'txtcategory_id' => ['required', 'numeric'],
+            'txtname' => ['required', 'string', 'max:255'],
+            'txtquantity' => ['required', 'numeric'],
+            'txtprice' => ['required', 'numeric'],
+            'txtamount' => ['required', 'numeric'],
+            'txttotalprice' => ['required', 'numeric'],
+            'txtstatus' => ['required', 'string'],
+            'description' => ['required', 'string', 'max:255'],
+        ]);
 
-        // ]);
-
+        // Handle the product image upload
         if ($request->hasFile('image')) {
             Storage::delete($product->image);
             $product->image = $request->file('image')->store('Product');
             $product->save();
         }
-        if ($request->file('images' == '')) {
-            $file = Storage::url($product->image);
-            $cover = $request->file($file)->store('Product');
-            $product->image = $cover;
-            $product->update();
+        // Delete old product gallary images
+        $gallary = ProductGallary::where('product_id', $product->id)->get();
+        foreach ($gallary as $Pgallary) {
+            Storage::delete($Pgallary->image);
+            $Pgallary->delete();
         }
+        // Handle the product gallary images upload
+        if ($request->hasFile('gallary_image')) {
+            $fileGallary = $request->file('gallary_image');
+
+            foreach ($fileGallary as $image) {
+                $path = $image->store('galleries');
+                $gall = new ProductGallary();
+                $gall->product_id = $product->id;
+                $gall->image = $path;
+                $gall->save();
+            }
+        }
+
+
 
         $product->update([
             'notedate' => $request->txtdate,
@@ -152,6 +169,8 @@ class ProductController extends Controller
 
         ]);
 
+
+
         return redirect()->route('product.show', $product->id);
     }
 
@@ -160,27 +179,15 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        Storage::delete($product->image);
+        //Storage::delete($product->image);
+        $gallary = ProductGallary::where('product_id', $product->id)->get();
+
+        foreach ($gallary as $Pgallary) {
+            Storage::delete($Pgallary->image);
+            $Pgallary->delete();
+        }
+
         $product->delete();
         return redirect()->route('product.index');
-    }
-
-    public function rules()
-    {
-        return [
-            'image' => ['required', 'image', Rule::dimensions()->maxWidth(100)->maxHeight(100), 'mimes:jpeg,png,gif', 'size:2048'],
-            // Add other validation rules for other fields
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'image.required' => 'Please select a product image.',
-            'image.image' => 'The selected file is not a valid image.',
-            'image.dimensions' => 'The image dimensions should not exceed 1000x1000 pixels.',
-            'image.mimes' => 'The image format should be JPEG, PNG, or GIF.',
-            'image.size' => 'The image size should not exceed 2MB.',
-        ];
     }
 }

@@ -86,7 +86,7 @@
                         <br>
 
                         <div class="row mb-12">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     {{-- <label for="image">Product</label> --}}
                                     <small class="form-text text-muted">Please select a product image (JPEG, PNG,
@@ -95,13 +95,10 @@
 
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row mb-12">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     {{-- <label for="image">Gallary</label> --}}
-                                    <small class="form-text text-muted">Please select a product gallary (JPEG, PNG,
+                                    <small class="form-text text-muted">Please select multiple product gallary (JPEG, PNG,
                                         GIF)</small>
                                     <input type="file" class="form-control" id="image" name="gallary_image[]"
                                         multiple>

@@ -7,7 +7,8 @@
                     <h3 class="text-center font-weight-light my-4">Adjust Slice</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('slice.update', $slice->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('slice.update', $slice->id) }}" method="POST" enctype="multipart/form-data"
+                        onsubmit="return confirm('Are you sure you want to adjust this Slice?')">
                         @method('PUT')
                         @csrf
                         <div class="row mb-12">
@@ -27,7 +28,7 @@
                                 style="max-width: 200px;">
                         </div>
                         {{-- <button type="submit" class="btn btn-primary">Update</button> --}}
-                        <div class="mt-4 mb-0">
+                        <div class="mt-4 mb-0 ">
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary btn-block">Update Slice</button>
                             </div>

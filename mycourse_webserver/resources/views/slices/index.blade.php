@@ -40,7 +40,7 @@
                                 <td>{{ $slice->id }}</td>
                                 <td>
                                     <img src="{{ url('storage/' . $slice->image) }}" alt="{{ $slice->id }}"
-                                        class="img-thumbnail" style="max-width: 100px;">
+                                        class="img-thumbnail" style="max-width: 61px;">
                                 </td>
                                 <td>{{ $slice->description }}</td>
                                 <td>
