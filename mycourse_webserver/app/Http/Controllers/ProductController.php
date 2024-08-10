@@ -19,8 +19,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('categories')->get();
+        $products = Product::with('categories', 'product_gallary')->get();
         return view('products.index', compact('products'));
+        // return response()->json($products);
     }
 
     /**
