@@ -10,7 +10,9 @@ use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-
+use App\Notifications\ProductInserted;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class ProductController extends Controller
 {
@@ -42,10 +44,7 @@ class ProductController extends Controller
         $request->validate([
 
             'description' => ['required', 'string'],
-
         ]);
-
-
         $file = null;
         if ($request->hasFile('image')) {
             $file = $request->file('image')->store('Product');
@@ -86,7 +85,7 @@ class ProductController extends Controller
             $gall->image = $fileGallary;
             $gall->save();
         }
-        return redirect()->route('product.show', $product->id);
+        return redirect()->route('product.index');
     }
 
     /**
@@ -135,17 +134,18 @@ class ProductController extends Controller
             Storage::delete($product->image);
             $product->image = $request->file('image')->store('Product');
             $product->save();
+        } else {
+            //No Need to upload new product image
         }
-        // Delete old product gallary images
-        $gallary = ProductGallary::where('product_id', $product->id)->get();
-        foreach ($gallary as $Pgallary) {
-            Storage::delete($Pgallary->image);
-            $Pgallary->delete();
-        }
-        // Handle the product gallary images upload
         if ($request->hasFile('gallary_image')) {
+            // Delete old product gallary images
+            $gallary = ProductGallary::where('product_id', $product->id)->get();
+            foreach ($gallary as $Pgallary) {
+                Storage::delete($Pgallary->image);
+                $Pgallary->delete();
+            }
+            // Handle the product gallary images upload
             $fileGallary = $request->file('gallary_image');
-
             foreach ($fileGallary as $image) {
                 $path = $image->store('galleries');
                 $gall = new ProductGallary();
@@ -153,10 +153,9 @@ class ProductController extends Controller
                 $gall->image = $path;
                 $gall->save();
             }
+        } else {
+            //No Need to upload new product Gallary images
         }
-
-
-
         $product->update([
             'notedate' => $request->txtdate,
             'category_id' => $request->txtcategory_id,
@@ -172,7 +171,8 @@ class ProductController extends Controller
 
 
 
-        return redirect()->route('product.show', $product->id);
+        // return redirect()->route('product.show', $product->id);
+        return redirect()->route('product.index', $product->id);
     }
 
     /**

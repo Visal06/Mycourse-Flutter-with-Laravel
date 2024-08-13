@@ -11,6 +11,12 @@ class ProductGallary extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'product_gallaries';
     protected $fillable = ['product_id', 'image'];
+    protected $appends = ["imageurl"];
+
+    public function getImageurlAttribute()
+    {
+        return asset('storage/' . $this->image);
+    }
     public function products()
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');  //belongsTo relationship with Product model

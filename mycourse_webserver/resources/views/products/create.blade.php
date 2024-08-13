@@ -10,15 +10,12 @@
                     <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data"
                         onsubmit="return confirm('Are you sure you want to create this Product?')">
                         @csrf
-
-
-
                         <div class="row mb-12">
                             <div class="col-md-3">
                                 <div class="form-floating mb-3 mb-md-0">
                                     <input class="form-control" id="notedate" type="date"
                                         placeholder="Select register date" name="txtdate"
-                                        value="{{ now()->format('Y-d-m') }}" />
+                                        value="{{ now()->format('Y-m-d') }}" />
                                     <label for="notedate">Register-Date</label>
                                 </div>
                             </div>

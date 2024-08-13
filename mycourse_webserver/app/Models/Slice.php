@@ -11,4 +11,10 @@ class Slice extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'slices';
     protected $fillable = ['image', 'description'];
+    protected $appends = ["imageurl"];
+
+    public function getImageurlAttribute()
+    {
+        return asset('storage/' . $this->image);
+    }
 }

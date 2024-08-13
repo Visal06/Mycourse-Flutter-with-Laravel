@@ -50,7 +50,7 @@ class SliceController extends Controller
 
         ]);
 
-        return redirect()->route('slice.show', $slice->id);
+        return redirect()->route('slice.index');
     }
 
     /**
@@ -94,7 +94,7 @@ class SliceController extends Controller
             'description' => $request->txtdescription,
         ]);
 
-        return redirect()->route('slice.show', $slice->id);
+        return redirect()->route('slice.index');
     }
 
     /**

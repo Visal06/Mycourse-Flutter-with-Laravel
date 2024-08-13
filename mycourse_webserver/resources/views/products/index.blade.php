@@ -60,8 +60,8 @@
                                 <td>{{ $product->amount }}</td>
                                 <td>${{ $product->totalprice }}</td>
                                 <td>
-                                    <img src="{{ url('storage/' . $product->image) }}" alt="{{ $product->name }}"
-                                        class="img-thumbnail" style="max-width: 61px;">
+                                    <img src="{{ $product->imageurl }}" alt="{{ $product->name }}" class="img-thumbnail"
+                                        style="max-width: 61px;">
                                 </td>
                                 <td>
                                     @if ($product->status == 'Active')

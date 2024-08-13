@@ -18,6 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// routes/web.php
+
+Route::get('/dashboard/mainpage', [App\Http\Controllers\MainPageController::class, 'index'])->name('mainpage');
 
 Route::get('/staff/index', [App\Http\Controllers\StaffController::class, 'index'])->name('staff.index');
 Route::get('/staff/create', [App\Http\Controllers\StaffController::class, 'create'])->name('staff.create');

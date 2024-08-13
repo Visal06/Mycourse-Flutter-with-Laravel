@@ -8,18 +8,10 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $slice->description }}</h5>
                 {{-- <h6 class="card-subtitle mb-2 text-muted">{{ $category->description }}</h6> --}}
-                <img src="{{ asset('storage/' . $slice->image) }}" alt="{{ $slice->id }}" class="img-fluid">
+                <img src="{{ asset('storage/' . $slice->image) }}" alt="{{ $slice->id }}" class="img-fluid"
+                    style="max-width: 250px;">
                 <br><br>
-                <a href="{{ route('slice.edit', $slice->id) }}" class="btn btn-warning">Edit</a>
-
-                <form action="{{ route('slice.destroy', $slice->id) }}" method="POST" style="display: inline;"
-                    onsubmit="return confirm('Are you sure you want to delete this purchase?')">
-
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-                <a href="{{ route('slice.index') }}" class="btn btn-primary">Back to list</a>
+                <a href="{{ route('mainpage') }}" class="btn btn-primary">Back to dashboard</a>
             </div>
         </div>
     </div>
