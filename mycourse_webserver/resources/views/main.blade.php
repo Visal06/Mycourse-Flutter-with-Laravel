@@ -127,14 +127,15 @@
                                         @method('DELETE')
                                         <a class="btn btn-info btn-sm" data-toggle="modal"
                                             data-target="#gallaryModal{{ $product->id }}">Gallary</a>
-                                        <a href="{{ route('product.edit', $product->id) }}"
-                                            class="btn btn-primary btn-sm">Edit</a>
-
+                                        <a href="{{ route('product.create') }}" class="btn btn-primary btn-sm">Add</a>
+                                        {{-- <a href="{{ route('product.edit', $product->id) }}"
+                                            class="btn btn-primary btn-sm">Edit</a> --}}
+                                        {{--
                                         @if ($product->image && Storage::exists($product->image))
                                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                         @else
                                             <button type="submit" class="btn btn-danger btn-sm" disabled>Delete</button>
-                                        @endif
+                                        @endif --}}
 
                                     </form>
                                 </td>

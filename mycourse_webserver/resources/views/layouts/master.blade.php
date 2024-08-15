@@ -26,6 +26,15 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    {{-- <link rel="stylesheet" href="{{ url('theme/assets/plugins/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url('theme/assets/plugins/feather/feather.css') }}">
+    <link rel="stylesheet" href="{{ url('theme/assets/plugins/icons/flags/flags.css') }}">
+    <link rel="stylesheet" href="{{ url('theme/assets/css/bootstrap-datetimepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ url('theme/assets/plugins/fontawesome/css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url('theme/assets/plugins/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url('theme/assets/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ url('theme/assets/css/style.css') }}"> --}}
 </head>
 
 <body class="sb-nav-fixed">
@@ -114,7 +123,7 @@
                                     <a class="nav-link" href="{{ route('slice.index') }}">
                                         <div class="sb-nav-link-icon"><i class="fas fa-image"></i></div> Slides
                                     </a>
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="{{ route('chartpage') }}">
                                         <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div> Users
                                     </a>
                                 </nav>
@@ -158,7 +167,22 @@
     <script src="{{ url('theme/js/datatables-simple-demo.js') }}"></script>
     <script src="{{ asset('theme/tinymce/tinymce.min.js') }}"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    {{--
+    <script src="{{ url('theme/assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    <script src="{{ url('theme/assets/js/feather.min.js') }}"></script>
+
+    <script src="{{ url('theme/assets/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+
+    <script src="{{ url('theme/assets/plugins/select2/js/select2.min.js') }}"></script>
+
+    <script src="{{ url('theme/assets/plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ url('theme/assets/js/bootstrap-datetimepicker.min.js') }}"></script> --}}
+
+    <script src="assets/js/script.js"></script>
     @yield('scripts')
+
 </body>
 
 </html>

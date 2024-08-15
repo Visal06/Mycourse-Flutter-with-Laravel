@@ -18,4 +18,9 @@ class MainPageController extends Controller
         $productGalleries = ProductGallary::all();
         return view('main', compact('products', 'categories', 'slices', 'productGalleries'));
     }
+
+    public function chart(Request $request)
+    {
+        return view('chart');
+    }
 }
