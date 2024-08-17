@@ -9,10 +9,7 @@ use App\Models\ProductGallary;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use App\Notifications\ProductInserted;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
+
 
 class ProductController extends Controller
 {

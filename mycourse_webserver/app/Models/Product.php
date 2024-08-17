@@ -28,15 +28,4 @@ class Product extends Model
     {
         return $this->hasMany(ProductGallary::class, 'product_id', 'id');  //hasMany relationship with Product model
     }
-
-    protected static function booted()
-    {
-        static::created(function ($product) {
-            // Assuming you want to notify all users or a specific user
-            $users = User::all(); // Retrieve all users, or specify a particular user
-            foreach ($users as $user) {
-                $user->notify(new ProductInserted($product));
-            }
-        });
-    }
 }
