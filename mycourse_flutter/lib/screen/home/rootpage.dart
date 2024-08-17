@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mycourse_flutter/home/favorite.dart';
-import 'package:mycourse_flutter/home/home.dart';
-import 'package:mycourse_flutter/home/profile.dart';
-import 'package:mycourse_flutter/home/setting.dart';
+import 'package:mycourse_flutter/screen/home/favorite.dart';
+import 'package:mycourse_flutter/screen/home/home.dart';
+import 'package:mycourse_flutter/screen/home/profile.dart';
+import 'package:mycourse_flutter/screen/home/setting.dart';
 
 class MyBottomNavBar extends StatefulWidget {
   const MyBottomNavBar({super.key});

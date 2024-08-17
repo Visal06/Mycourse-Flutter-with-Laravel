@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mycourse_flutter/auth/login.dart';
+import 'package:mycourse_flutter/screen/auth/forgot.dart';
+import 'package:mycourse_flutter/screen/auth/register.dart';
 
-class Register extends StatefulWidget {
-  const Register({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<Register> createState() => _RegisterState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _RegisterState extends State<Register> {
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,46 +18,42 @@ class _RegisterState extends State<Register> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              width: 150.0,
-              height: 150.0,
+            SizedBox(
+              width: 200.0,
+              height: 200.0,
               child: Image.asset('assets/image/solo logo.png'),
             ),
+            const SizedBox(height: 22),
             const Text(
-              'Register before continuing',
+              'Welcome to the Keels Login page',
               style: TextStyle(
                   letterSpacing: 3,
                   fontWeight: FontWeight.bold,
                   fontSize: 16.0),
             ),
-            const SizedBox(height: 25.0),
+            const SizedBox(height: 22.0),
             Container(
-              margin: const EdgeInsets.only(left: 10.0, right: 16.0),
+              margin: const EdgeInsets.only(left: 12.0, right: 16.0),
+              alignment: Alignment.center,
               child: const TextField(
                 decoration: InputDecoration(
-                    labelText: 'Username',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(16.0)))),
+                  labelText: 'Username',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                ),
               ),
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 20.0),
             Container(
-              margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+              margin: const EdgeInsets.only(left: 12.0, right: 12.0),
               child: const TextField(
+                obscureText: true,
                 decoration: InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(16.0)))),
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            Container(
-              margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-              child: const TextField(
-                decoration: InputDecoration(
-                    labelText: 'email@sample.com',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(16.0)))),
+                  labelText: 'password',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  // Show password as dots
+                ),
               ),
             ),
             const SizedBox(height: 16.0),
@@ -73,21 +70,27 @@ class _RegisterState extends State<Register> {
                 alignment: Alignment.center,
                 color: Colors.green,
                 child: const Text(
-                  'Sign Up',
+                  'Signin',
                   style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.white),
                 ),
               ),
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  "Already signed up?",
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 3, 3, 3),
-                      fontWeight: FontWeight.bold),
+                InkWell(
+                  onTap: () {
+                    // Navigate to the registration screen
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ForgotPage()));
+                  },
+                  child: const Text(
+                    "forgot password?",
+                    style: TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold),
+                  ),
                 ),
                 const SizedBox(
                   width: 12.0,
@@ -95,10 +98,10 @@ class _RegisterState extends State<Register> {
                 InkWell(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
+                        MaterialPageRoute(builder: (context) => Register()));
                   },
                   child: const Text(
-                    'Back to login',
+                    'Register',
                     style: TextStyle(
                         color: Colors.blue, fontWeight: FontWeight.bold),
                   ),
@@ -108,13 +111,6 @@ class _RegisterState extends State<Register> {
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     // Go back to login page
-      //     Navigator.pop(context);
-      //   },
-      //   child: Icon(Icons.arrow_back),
-      // ),
     );
   }
 }
