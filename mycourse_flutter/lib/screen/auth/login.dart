@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mycourse_flutter/component/button.dart';
+import 'package:mycourse_flutter/model/user.dart';
+import 'package:mycourse_flutter/model/userresponse.dart';
 import 'package:mycourse_flutter/screen/auth/forgot.dart';
+import 'package:mycourse_flutter/screen/auth/logic/loginpresentor.dart';
+import 'package:mycourse_flutter/screen/auth/logic/loginview.dart';
 import 'package:mycourse_flutter/screen/auth/register.dart';
 
 class LoginPage extends StatefulWidget {
@@ -9,7 +14,25 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> implements Loginview {
+  TextEditingController userController =
+      TextEditingController(text: 'asss@gmail.com');
+  TextEditingController passwordController =
+      TextEditingController(text: 'admin123456');
+  bool isErro = true;
+  late Loginpresentor presentor;
+  late final UserModel? userModel;
+  late bool loadin;
+  late String responsetext;
+
+  @override
+  void initState() {
+    super.initState();
+    presentor = Loginpresentor(this);
+    // userModel = UserModel();
+    // loadin = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +58,8 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               margin: const EdgeInsets.only(left: 12.0, right: 16.0),
               alignment: Alignment.center,
-              child: const TextField(
+              child: TextField(
+                controller: userController,
                 decoration: InputDecoration(
                   labelText: 'Username',
                   border: OutlineInputBorder(
@@ -46,7 +70,8 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 20.0),
             Container(
               margin: const EdgeInsets.only(left: 12.0, right: 12.0),
-              child: const TextField(
+              child: TextField(
+                controller: passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'password',
@@ -57,26 +82,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             const SizedBox(height: 16.0),
-            InkWell(
-              onTap: () {
-                // Navigate to the login screen
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
-              },
-              child: Container(
-                margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-                width: double.infinity,
-                height: 45.0,
-                alignment: Alignment.center,
-                color: Colors.green,
-                child: const Text(
-                  'Signin',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
+            ButtonComponent(label: "Login", onclick: onLogin),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -112,5 +118,33 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void onLoading(bool loading) {
+    setState(() {
+      loadin = loading;
+    });
+  }
+
+  @override
+  void onLogin() {
+    setState(() {
+      presentor.loginRequest();
+    });
+  }
+
+  @override
+  void onString(String str) {
+    setState(() {
+      responsetext = str;
+    });
+  }
+
+  @override
+  void onSuccess(Userresponse userresponse) {
+    setState(() {
+      userModel = userresponse.user;
+    });
   }
 }

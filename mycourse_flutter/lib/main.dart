@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycourse_flutter/screen/auth/login.dart';
 import 'package:mycourse_flutter/screen/home/rootpage.dart';
 
 void main() {
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyBottomNavBar(),
+      // home: const MyBottomNavBar(),
+      home: const LoginPage(),
     );
   }
 }
