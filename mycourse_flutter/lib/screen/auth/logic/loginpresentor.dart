@@ -12,8 +12,8 @@ class Loginpresentor {
   Future<void> loginRequest() async {
     view.onLoading(true);
     UserLoginRequest request = UserLoginRequest();
-    request.email = "admin@gmail.com";
-    request.password = "Admin@123";
+    request.email = "asss@gmail.com";
+    request.password = "admin123456";
 
     try {
       var response = await http.post(Uri.parse(ApiService.loginapi),

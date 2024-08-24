@@ -16,9 +16,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> implements Loginview {
   TextEditingController userController =
-      TextEditingController(text: 'asss@gmail.com');
+      TextEditingController(text: 'admin@gmail.com');
   TextEditingController passwordController =
-      TextEditingController(text: 'admin123456');
+      TextEditingController(text: 'Admin@123');
   bool isErro = true;
   late Loginpresentor presentor;
   late final UserModel? userModel;

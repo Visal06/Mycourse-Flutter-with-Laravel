@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    }
     public function register(Request $request)
     {
         $request->validate([
@@ -22,14 +26,16 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
         $token = $user->createToken('auth_token')->plainTextToken;
-        return response()->json([
-            'status' => true,
-            'message' => 'User registered successfully',
-            'data' => [
-                'user' => $user,
-                'token' => $token,
-            ],
-        ]);
+        $u = array(
+            "id" => $user->id,
+            "name" => $user->name,
+            "email" => $user->email
+        );
+        $data = array(
+            "user" => $u,
+            "token" => $token,
+        );
+        return response($data, 200);
     }
     public function login(Request $request)
     {
@@ -41,19 +47,15 @@ class AuthController extends Controller
         $user = Apiuser::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'status' => false,
+            return response([
                 'message' => 'Invalid credentials',
             ], 401);
         }
         $token = $user->createToken('auth_token')->plainTextToken;
-        return response()->json([
-            'status' => true,
-            'message' => 'User logged in successfully',
-            'data' => [
-                'user' => $user,
-                'token' => $token,
-            ],
-        ]);
+        $data = array(
+            "user" => $user,
+            "token" => $token,
+        );
+        return response($data, 200);
     }
 }

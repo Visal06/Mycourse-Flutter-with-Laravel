@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mycourse_flutter/screen/auth/login.dart';
-import 'package:mycourse_flutter/screen/home/rootpage.dart';
+import 'package:mycourse_flutter/screen/home/master.dart';
+// import 'package:mycourse_flutter/screen/home/rootpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,11 +16,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 1, 156, 9)),
         useMaterial3: true,
       ),
       // home: const MyBottomNavBar(),
-      home: const LoginPage(),
+      home: const MainScreen(),
     );
   }
 }

@@ -1,12 +1,21 @@
-import 'package:flutter/material.dart';
+// import 'package:carousel_slider/carousel_slider.dart' as carousel_slider;
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final PageController _carouselController = PageController();
+  @override
   Widget build(BuildContext context) {
-    //bannner sliders images
+    // banner sliders images
     final List<String> imgList = [
       'assets/image/b1.webp',
       'assets/image/b2.jpg',
@@ -16,66 +25,62 @@ class HomePage extends StatelessWidget {
       'assets/image/b6.jpg',
       'assets/image/pro.png',
     ];
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              height: 50,
+            AppBar(
+              title: Text(
+                'Home',
+                style: TextStyle(color: Colors.white),
+              ),
+              elevation: 0,
+              backgroundColor: Colors.green,
+              centerTitle: true,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+
+            // banner sliders
+            const SizedBox(height: 22),
+            Stack(
               children: [
-                Container(
-                  margin: const EdgeInsets.only(left: 14),
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border.all(width: 2, color: Colors.black),
-                  ),
-                  child: Image.asset('assets/image/profile.png'),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 30),
-                  child: const Column(
-                    children: [
-                      Text(
-                        'World Beauty Cosmetic',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        'Super VIP Customer',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ],
+                CarouselSlider(
+                  items: imgList
+                      .map((item) => Center(
+                            child: Image.asset(item,
+                                fit: BoxFit.cover, width: 1000),
+                          ))
+                      .toList(),
+                  // carouselController: _carouselController,
+                  options: CarouselOptions(
+                    height: 200,
+                    autoPlay: true,
+                    enlargeCenterPage: true,
+                    onPageChanged: (index, reason) {
+                      setState(() {});
+                    },
                   ),
                 ),
-                Container(
-                  width: 30,
-                  height: 30,
-                  margin: const EdgeInsets.only(right: 5, left: 41),
-                  child: InkWell(
-                      onTap: () {},
-                      child: Image.asset('assets/image/search.webp')),
+                Positioned(
+                  bottom: 10,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: SmoothPageIndicator(
+                      controller: _carouselController,
+                      count: imgList.length,
+                      effect: ExpandingDotsEffect(
+                        dotWidth: 10,
+                        dotHeight: 10,
+                        expansionFactor: 4,
+                        spacing: 5,
+                        activeDotColor: Colors.green,
+                        dotColor: Colors.grey,
+                      ),
+                    ),
+                  ),
                 ),
               ],
-            ),
-            //bannner sliders
-            const SizedBox(height: 22),
-            CarouselSlider(
-              items: imgList
-                  .map((item) => Center(
-                        child:
-                            Image.asset(item, fit: BoxFit.cover, width: 1000),
-                      ))
-                  .toList(),
-              options: CarouselOptions(
-                height: 200,
-                autoPlay: true,
-                enlargeCenterPage: true,
-              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -100,169 +105,42 @@ class HomePage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 22),
-            Card(
-              color: Colors.white,
-              child: InkWell(
-                onTap: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 22, right: 22),
-                      child: Image.asset(
-                        'assets/image/1.png',
-                        width: 85,
-                        height: 85,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 30),
-                      child: const Text(
-                        "\$200",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Card(
-              color: Colors.white,
-              child: InkWell(
-                onTap: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 22, right: 22),
-                      child: Image.asset(
-                        'assets/image/2.png',
-                        width: 85,
-                        height: 85,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 30),
-                      child: const Text(
-                        "\$200",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Card(
-              color: Colors.white,
-              child: InkWell(
-                onTap: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 22, right: 22),
-                      child: Image.asset(
-                        'assets/image/3.png',
-                        width: 85,
-                        height: 85,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 30),
-                      child: const Text(
-                        "\$200",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Card(
-              color: Colors.white,
-              child: InkWell(
-                onTap: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 22, right: 22),
-                      child: Image.asset(
-                        'assets/image/4.png',
-                        width: 85,
-                        height: 85,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 30),
-                      child: const Text(
-                        "\$200",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Card(
-              color: Colors.white,
-              child: InkWell(
-                onTap: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 22, right: 22),
-                      child: Image.asset(
-                        'assets/image/5.png',
-                        width: 85,
-                        height: 85,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 30),
-                      child: const Text(
-                        "\$200",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Card(
-              color: Colors.white,
-              child: InkWell(
-                onTap: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 22, right: 22),
-                      child: Image.asset(
-                        'assets/image/6.png',
-                        width: 85,
-                        height: 85,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 30),
-                      child: const Text(
-                        "\$200",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            _buildProductCard('assets/image/1.png', '\$200'),
+            _buildProductCard('assets/image/2.png', '\$200'),
+            _buildProductCard('assets/image/3.png', '\$200'),
+            _buildProductCard('assets/image/4.png', '\$200'),
+            _buildProductCard('assets/image/5.png', '\$200'),
+            _buildProductCard('assets/image/6.png', '\$200'),
             const SizedBox(height: 100),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Card _buildProductCard(String imagePath, String price) {
+    return Card(
+      color: Colors.white,
+      child: InkWell(
+        onTap: () {},
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(left: 22, right: 22),
+              child: Image.asset(
+                imagePath,
+                width: 85,
+                height: 85,
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(right: 30),
+              child: Text(
+                price,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
           ],
         ),
       ),
